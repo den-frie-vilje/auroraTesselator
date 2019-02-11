@@ -21,6 +21,7 @@ class ofApp : public ofBaseApp{
     void load (string name);
     ofxDelaunay triangulation;
 
+    ofDefaultVec3 pointGrabbed;
     
    
 };

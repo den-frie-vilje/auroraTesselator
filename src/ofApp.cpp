@@ -99,16 +99,20 @@ void ofApp::selectPoint(){
     
     if(ofGetMousePressed(OF_MOUSE_BUTTON_RIGHT)){
         
+        int pickedIndex = -1; // to store the index of the returned vertice
         
-        numOfPoints = triangulation.getNumPoints();
+        // the function returns an ofVec3/glm::vec3 with x,y,z
+        // to get the index we pass the integer from before that the function accepts as a reference
+        // the function sets it to the index of the picked vertice, or -1 if no vertice was found.
         
-        pointGrabbed = triangulation.getPointNear(ofDefaultVec3(ofGetMouseX(),ofGetMouseY(),0), 30, numOfPoints);
+        pointGrabbed = triangulation.getPointNear(ofDefaultVec3(ofGetMouseX(),ofGetMouseY(),0), 30, pickedIndex);
         //ofSetRectMode(OF_RECTMODE_CENTER);
-        ofFill();
-        ofSetColor(255, 255, 255, 100);
-        ofDrawBox(pointGrabbed.x, pointGrabbed.y, 0, 10, 10,10);
-        ofSetColor(255, 255, 255);
-        
+        if(pickedIndex > -1){
+            ofFill();
+            ofSetColor(255, 255, 255, 100);
+            ofDrawBox(pointGrabbed.x, pointGrabbed.y, 0, 10, 10,10);
+            ofSetColor(255, 255, 255);
+        }
         
         // cout << ", nearest point: " << pointGrabbed.x << ", " << pointGrabbed.y << ", " << pointGrabbed.z << ". "
         // << "at index: " << pointGrabbed.i << ". ";
@@ -119,12 +123,12 @@ void ofApp::selectPoint(){
 
 void ofApp::deletePoint(){
     
-    numOfPoints = triangulation.getNumPoints();
-    //cout << numOfPoints;
-    
     if (numOfPoints > 3){
-        pointGrabbed = triangulation.getPointNear(ofDefaultVec3(ofGetMouseX(),ofGetMouseY(),0), 25, numOfPoints);
-        triangulation.removePointAtIndex(pointGrabbed.i);
+        int pickedIndex = -1;
+        pointGrabbed = triangulation.getPointNear(ofDefaultVec3(ofGetMouseX(),ofGetMouseY(),0), 25, pickedIndex);
+        if(pickedIndex > -1){
+            triangulation.removePointAtIndex(pickedIndex);
+        }
         //triangulation.triangulate();
         //cout << "point deleted";
     }
