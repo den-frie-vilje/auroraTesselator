@@ -14,14 +14,16 @@ class ofApp : public ofBaseApp{
 
     void keyPressed(int key);
     void mousePressed(int x, int y, int button);
-    void selectPoint();
+    void mouseDragged( int x, int y, int button );
     void deletePoint();
 
-    void save(string name);
-    void load (string name);
+    void save(string name = "default");
+    void load (string name = "default");
     ofxDelaunay triangulation;
 
-    ofDefaultVec3 pointGrabbed;
+    int grabbedPointIndex = -1;
+    ofDefaultVec3 grabbedPoint;
     
+    bool grabbedPointShouldBeDeleted = false;
    
 };
