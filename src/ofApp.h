@@ -17,13 +17,29 @@ class ofApp : public ofBaseApp{
     void mouseDragged( int x, int y, int button );
     void deletePoint();
 
-    void save(string name = "default");
-    void load (string name = "default");
     ofxDelaunay triangulation;
+
+    // GUI
 
     int grabbedPointIndex = -1;
     ofDefaultVec3 grabbedPoint;
     
     bool grabbedPointShouldBeDeleted = false;
+    
+    bool imGui();
+    ofxImGui::Gui gui;
+    string title = "Delaunay Editor for Aurora Project";
+    bool mouseOverGui;
+    int guiColumnWidth = 250;
+    
+    ImFont* gui_font_header;
+    ImFont* gui_font_text;
+    
+    ofImage logo;
+    GLuint logoID;
+    
+    void save(string name = "default");
+    void load (string name = "default");
+
    
 };
